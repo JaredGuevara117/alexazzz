@@ -1,6 +1,6 @@
 const Alexa = require('ask-sdk-core');
 
-const { SessionEndedRequest, HelpIntent, CancelAndStopIntentHandler, UnhandledIntent } = require('./intents/amazonIntents');
+const { SessionEndedRequest, HelpIntent, CancelAndStopIntentHandler, UnhandledIntent } = require('./intents/AmazonIntents');
 const { HelloWorldIntentHandler } = require('./intents/HelloWorldIntent');
 const { LaunchRequest } = require('./intents/LaunchIntent');
 
