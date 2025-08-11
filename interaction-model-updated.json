@@ -1,0 +1,120 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "work space",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ActivateEnvironmentIntent",
+                    "slots": [
+                        {
+                            "name": "environmentName",
+                            "type": "ENVIRONMENT_NAMES"
+                        }
+                    ],
+                    "samples": [
+                        "Entorno {environmentName}",
+                        "Escenario {environmentName}",
+                        "Activa {environmentName}",
+                        "Encender {environmentName}",
+                        "Iniciar {environmentName}",
+                        "Prender el escenario {environmentName}",
+                        "Activar el entorno {environmentName}"
+                    ]
+                },
+                {
+                    "name": "DeactivateEnvironmentIntent",
+                    "slots": [
+                        {
+                            "name": "environmentName",
+                            "type": "ENVIRONMENT_NAMES"
+                        }
+                    ],
+                    "samples": [
+                        "Apaga el entorno {environmentName}",
+                        "Apaga el escenario {environmentName}",
+                        "Finaliza el entorno {environmentName}",
+                        "Apaga {environmentName}",
+                        "Desactiva {environmentName}"
+                    ]
+                },
+                {
+                    "name": "ActivateEnvironmentSimpleIntent",
+                    "slots": [
+                        {
+                            "name": "environmentNameText",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "Activa {environmentNameText}",
+                        "Encender {environmentNameText}",
+                        "Iniciar {environmentNameText}",
+                        "Prender {environmentNameText}",
+                        "Activar {environmentNameText}",
+                        "Activa el entorno {environmentNameText}",
+                        "Activa el escenario {environmentNameText}"
+                    ]
+                },
+                {
+                    "name": "DeactivateEnvironmentSimpleIntent",
+                    "slots": [
+                        {
+                            "name": "environmentNameText",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "Apaga {environmentNameText}",
+                        "Desactiva {environmentNameText}",
+                        "Finaliza {environmentNameText}",
+                        "Apaga el entorno {environmentNameText}",
+                        "Apaga el escenario {environmentNameText}",
+                        "Desactiva el entorno {environmentNameText}",
+                        "Desactiva el escenario {environmentNameText}"
+                    ]
+                },
+                {
+                    "name": "ListEnvironmentsIntent",
+                    "slots": [],
+                    "samples": [
+                        "Recuerdame mis entornos",
+                        "Recuerdame mis escenarios",
+                        "Qué escenarios tengo",
+                        "Lista de escenarios",
+                        "Lista de entornos",
+                        "Qué entornos tengo",
+                        "lista mis entornos"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "ENVIRONMENT_NAMES",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "ashjajkdgahjkdgahjdqhjmdqwhjkdfg"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
