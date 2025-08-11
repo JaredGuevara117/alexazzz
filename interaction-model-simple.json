@@ -34,7 +34,10 @@
                         "Prender {environmentNameFree}",
                         "Activar {environmentNameFree}",
                         "Activa el entorno {environmentNameFree}",
-                        "Activa el escenario {environmentNameFree}"
+                        "Activa el escenario {environmentNameFree}",
+                        "Enciende el entorno {environmentNameFree}",
+                        "Enciende el escenario {environmentNameFree}",
+                        "Modo {environmentNameFree}"
                     ]
                 },
                 {
@@ -50,10 +53,7 @@
                         "Desactiva {environmentNameFree}",
                         "Finaliza {environmentNameFree}",
                         "Apaga el entorno {environmentNameFree}",
-                        "Apaga el escenario {environmentNameFree}",
-                        "Enciende el entorno {environmentNameFree}",
-                        "Enciende el escenario {environmentNameFree}",
-                        "Modo {environmentNameFree}"
+                        "Apaga el escenario {environmentNameFree}"
                     ]
                 },
                 {
