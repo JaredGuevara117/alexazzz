@@ -3,7 +3,7 @@ const LaunchRequest = {
       return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-      const speechText = 'Hola, bienvenido a prueba uno.';
+      const speechText = 'Hola, bienvenido workspace, tu asistente de control de entornos configurados en tú aplicación.';
   
       return handlerInput.responseBuilder
         .speak(speechText)

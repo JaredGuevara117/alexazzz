@@ -144,6 +144,8 @@ const ListEnvironmentsIntent = {
             if (!entornos || entornos.length === 0) {
                 return handlerInput.responseBuilder
                     .speak('No tienes entornos configurados aún. Puedes crear entornos desde tu aplicación móvil.')
+                    .reprompt('¿Te gustaría hacer algo más?')
+                    .withShouldEndSession(false)
                     .getResponse();
             }
 
@@ -162,12 +164,15 @@ const ListEnvironmentsIntent = {
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .reprompt('¿Qué entorno te gustaría activar o desactivar?')
+                .withShouldEndSession(false)
                 .getResponse();
 
         } catch (error) {
             console.error('Error listing environments:', error);
             return handlerInput.responseBuilder
                 .speak('Lo siento, tuve un problema al obtener la lista de entornos. Inténtalo de nuevo.')
+                .reprompt('¿Qué te gustaría hacer?')
+                .withShouldEndSession(false)
                 .getResponse();
         }
     }
@@ -346,7 +351,8 @@ const ActivateEnvironmentFreeTextIntent = {
         if (!spokenText) {
             return handlerInput.responseBuilder
                 .speak('No pude entender el nombre del entorno. ¿Podrías repetirlo?')
-                .reprompt('¿Qué entorno te gustaría activar?')
+                .reprompt('¿Qué entorno te gustaría activar? Puedes decir "lista mis entornos" para ver los disponibles.')
+                .withShouldEndSession(false)
                 .getResponse();
         }
 
@@ -371,7 +377,8 @@ const ActivateEnvironmentFreeTextIntent = {
             if (!environmentName) {
                 return handlerInput.responseBuilder
                     .speak(`No encontré un entorno que coincida con "${spokenText}". ¿Podrías verificar el nombre?`)
-                    .reprompt('¿Qué entorno te gustaría activar?')
+                    .reprompt('¿Qué entorno te gustaría activar? Puedes decir "lista mis entornos" para ver los disponibles.')
+                    .withShouldEndSession(false)
                     .getResponse();
             }
 
@@ -381,7 +388,9 @@ const ActivateEnvironmentFreeTextIntent = {
             await entorno.save();
 
             return handlerInput.responseBuilder
-                .speak(`Perfecto, he activado el entorno ${environmentName}. Los sensores y dispositivos están configurados según tu escenario.`)
+                .speak(`Perfecto, he activado el entorno ${environmentName}. Los sensores y dispositivos están configurados según tu escenario. ¿Hay algo más que te gustaría hacer?`)
+                .reprompt('Puedes activar otro entorno, desactivar uno, o listar tus entornos. ¿Qué te gustaría hacer?')
+                .withShouldEndSession(false)
                 .getResponse();
 
         } catch (error) {
@@ -389,6 +398,7 @@ const ActivateEnvironmentFreeTextIntent = {
             return handlerInput.responseBuilder
                 .speak('Lo siento, tuve un problema al activar el entorno. Inténtalo de nuevo.')
                 .reprompt('¿Qué entorno te gustaría activar?')
+                .withShouldEndSession(false)
                 .getResponse();
         }
     }
@@ -414,7 +424,8 @@ const DeactivateEnvironmentFreeTextIntent = {
         if (!spokenText) {
             return handlerInput.responseBuilder
                 .speak('No pude entender el nombre del entorno. ¿Podrías repetirlo?')
-                .reprompt('¿Qué entorno te gustaría desactivar?')
+                .reprompt('¿Qué entorno te gustaría desactivar? Puedes decir "lista mis entornos" para ver los disponibles.')
+                .withShouldEndSession(false)
                 .getResponse();
         }
 
@@ -439,7 +450,8 @@ const DeactivateEnvironmentFreeTextIntent = {
             if (!environmentName) {
                 return handlerInput.responseBuilder
                     .speak(`No encontré un entorno que coincida con "${spokenText}". ¿Podrías verificar el nombre?`)
-                    .reprompt('¿Qué entorno te gustaría desactivar?')
+                    .reprompt('¿Qué entorno te gustaría desactivar? Puedes decir "lista mis entornos" para ver los disponibles.')
+                    .withShouldEndSession(false)
                     .getResponse();
             }
 
@@ -449,7 +461,9 @@ const DeactivateEnvironmentFreeTextIntent = {
             await entorno.save();
 
             return handlerInput.responseBuilder
-                .speak(`Listo, he desactivado el entorno ${environmentName}. Todos los dispositivos han vuelto a su estado normal.`)
+                .speak(`Listo, he desactivado el entorno ${environmentName}. Todos los dispositivos han vuelto a su estado normal. ¿Hay algo más que te gustaría hacer?`)
+                .reprompt('Puedes activar otro entorno, desactivar uno, o listar tus entornos. ¿Qué te gustaría hacer?')
+                .withShouldEndSession(false)
                 .getResponse();
 
         } catch (error) {
@@ -457,8 +471,24 @@ const DeactivateEnvironmentFreeTextIntent = {
             return handlerInput.responseBuilder
                 .speak('Lo siento, tuve un problema al desactivar el entorno. Inténtalo de nuevo.')
                 .reprompt('¿Qué entorno te gustaría desactivar?')
+                .withShouldEndSession(false)
                 .getResponse();
         }
+    }
+};
+
+const ExitSkillIntent = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && (handlerInput.requestEnvelope.request.intent.name === 'ExitSkillIntent' ||
+                handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent' ||
+                handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent');
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak('Perfecto, me voy. ¡Que tengas un buen día!')
+            .withShouldEndSession(true)
+            .getResponse();
     }
 };
 
@@ -469,5 +499,6 @@ module.exports = {
     ActivateEnvironmentSimpleIntent,
     DeactivateEnvironmentSimpleIntent,
     ActivateEnvironmentFreeTextIntent,
-    DeactivateEnvironmentFreeTextIntent
+    DeactivateEnvironmentFreeTextIntent,
+    ExitSkillIntent
 };

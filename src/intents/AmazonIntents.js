@@ -11,18 +11,16 @@ const SessionEndedRequest = {
 
 const HelpIntent = {
     canHandle(handlerInput) {
-        const { request } = handlerInput.requestEnvelope;
-
-        return request.type === 'IntentRequest' && request.intent.name === 'AMAZON.HelpIntent';
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Puedes decir: hola mundo.';
-
         return handlerInput.responseBuilder
-            .speak(speechText)
-            .reprompt(speechText)
+            .speak('Te ayudo a controlar tus entornos. Puedes decir: "activa" seguido del nombre del entorno para activarlo, "apaga" para desactivarlo, o "lista mis entornos" para ver todos los disponibles. También puedes decir "salir" cuando termines.')
+            .reprompt('¿Qué entorno te gustaría activar o desactivar?')
+            .withShouldEndSession(false)
             .getResponse();
-    },
+    }
 };
 
 const CancelAndStopIntentHandler = {

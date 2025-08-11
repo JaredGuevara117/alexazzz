@@ -28,17 +28,43 @@ npm start
 
 ## Intents Disponibles
 
-### ActivateEnvironmentIntent / ActivateEnvironmentSimpleIntent
+### ActivateEnvironmentFreeTextIntent
 - **Ejemplos**: "Activa [nombre del entorno]", "Encender [nombre del entorno]"
 - **Función**: Activa un entorno específico
+- **Sesión**: Mantiene la sesión abierta
 
-### DeactivateEnvironmentIntent / DeactivateEnvironmentSimpleIntent
+### DeactivateEnvironmentFreeTextIntent
 - **Ejemplos**: "Apaga [nombre del entorno]", "Desactiva [nombre del entorno]"
 - **Función**: Desactiva un entorno específico
+- **Sesión**: Mantiene la sesión abierta
 
 ### ListEnvironmentsIntent
 - **Ejemplos**: "Lista mis entornos", "Qué entornos tengo"
 - **Función**: Lista todos los entornos disponibles
+- **Sesión**: Mantiene la sesión abierta
+
+### ExitSkillIntent
+- **Ejemplos**: "Salir", "Adiós", "Hasta luego"
+- **Función**: Cierra la skill
+- **Sesión**: Cierra la sesión
+
+## Características de la Sesión
+
+### ✅ Sesión Persistente
+- La skill **NO se cierra** después de activar/desactivar entornos
+- Puedes hacer múltiples comandos sin reiniciar la skill
+- Reprompts automáticos para guiarte
+
+### 🎯 Comandos de Salida
+Para salir de la skill, di:
+- "Salir"
+- "Adiós" 
+- "Hasta luego"
+- "Terminar"
+- "Cerrar"
+
+### 💡 Ayuda Integrada
+Di "Ayuda" para obtener instrucciones sobre cómo usar la skill.
 
 ## Solución de Problemas
 
@@ -46,15 +72,15 @@ npm start
 
 Si tienes este problema, es porque Alexa no está reconociendo correctamente el nombre del entorno. Soluciones:
 
-1. **Usa los intents simples**: Los intents `ActivateEnvironmentSimpleIntent` y `DeactivateEnvironmentSimpleIntent` usan slots de texto libre que son más flexibles.
+1. **Usa los intents de texto libre**: Los intents `ActivateEnvironmentFreeTextIntent` y `DeactivateEnvironmentFreeTextIntent` usan slots de texto libre que son más flexibles.
 
-2. **Actualiza el modelo de interacción**: Usa el archivo `interaction-model-updated.json` que incluye los intents simples.
+2. **Actualiza el modelo de interacción**: Usa el archivo `interaction-model-simple.json` que incluye los intents de texto libre.
 
-3. **Verifica los logs**: El código ahora incluye debugging que muestra en la consola qué está recibiendo Alexa.
+3. **Verifica los logs**: El código incluye debugging que muestra en la consola qué está recibiendo Alexa.
 
 ### Debugging
 
-El código ahora incluye logs detallados que te ayudarán a identificar problemas:
+El código incluye logs detallados que te ayudarán a identificar problemas:
 
 - Revisa la consola del servidor para ver los logs de debugging
 - Los logs mostrarán el intent completo y el valor extraído del slot
@@ -78,7 +104,8 @@ El skill utiliza el modelo `Entorno` que incluye:
 
 ## Modelo de Interacción
 
-Usa el archivo `interaction-model-updated.json` que incluye:
-- Intents originales con slots tipados
-- Intents simples con slots de texto libre (AMAZON.SearchQuery)
+Usa el archivo `interaction-model-simple.json` que incluye:
+- Intents de texto libre con slots AMAZON.SearchQuery
 - Mayor flexibilidad para reconocer nombres de entornos
+- Intent de salida para cerrar la skill
+- Sesión persistente para múltiples comandos
