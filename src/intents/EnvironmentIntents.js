@@ -326,10 +326,148 @@ const DeactivateEnvironmentSimpleIntent = {
     }
 };
 
+const ActivateEnvironmentFreeTextIntent = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'ActivateEnvironmentFreeTextIntent';
+    },
+    async handle(handlerInput) {
+        const { requestEnvelope } = handlerInput;
+        const intent = requestEnvelope.request.intent;
+        
+        console.log('Intent free text completo:', JSON.stringify(intent, null, 2));
+        
+        // Obtener el texto completo hablado
+        const spokenText = requestEnvelope.request.intent.slots.environmentNameFree ? 
+            requestEnvelope.request.intent.slots.environmentNameFree.value : '';
+        
+        console.log('Texto hablado:', spokenText);
+        
+        if (!spokenText) {
+            return handlerInput.responseBuilder
+                .speak('No pude entender el nombre del entorno. ¿Podrías repetirlo?')
+                .reprompt('¿Qué entorno te gustaría activar?')
+                .getResponse();
+        }
+
+        try {
+            // Buscar todos los entornos
+            const entornos = await Entorno.find({});
+            console.log('Entornos encontrados:', entornos.map(e => e.nombre));
+            
+            // Buscar coincidencia en el texto hablado
+            let environmentName = null;
+            const spokenTextLower = spokenText.toLowerCase();
+            
+            for (const entorno of entornos) {
+                if (spokenTextLower.includes(entorno.nombre.toLowerCase())) {
+                    environmentName = entorno.nombre;
+                    break;
+                }
+            }
+            
+            console.log('Environment name encontrado:', environmentName);
+
+            if (!environmentName) {
+                return handlerInput.responseBuilder
+                    .speak(`No encontré un entorno que coincida con "${spokenText}". ¿Podrías verificar el nombre?`)
+                    .reprompt('¿Qué entorno te gustaría activar?')
+                    .getResponse();
+            }
+
+            // Activar el entorno
+            const entorno = await Entorno.findOne({ nombre: environmentName });
+            entorno.estado = true;
+            await entorno.save();
+
+            return handlerInput.responseBuilder
+                .speak(`Perfecto, he activado el entorno ${environmentName}. Los sensores y dispositivos están configurados según tu escenario.`)
+                .getResponse();
+
+        } catch (error) {
+            console.error('Error activating environment:', error);
+            return handlerInput.responseBuilder
+                .speak('Lo siento, tuve un problema al activar el entorno. Inténtalo de nuevo.')
+                .reprompt('¿Qué entorno te gustaría activar?')
+                .getResponse();
+        }
+    }
+};
+
+const DeactivateEnvironmentFreeTextIntent = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'DeactivateEnvironmentFreeTextIntent';
+    },
+    async handle(handlerInput) {
+        const { requestEnvelope } = handlerInput;
+        const intent = requestEnvelope.request.intent;
+        
+        console.log('Intent free text completo:', JSON.stringify(intent, null, 2));
+        
+        // Obtener el texto completo hablado
+        const spokenText = requestEnvelope.request.intent.slots.environmentNameFree ? 
+            requestEnvelope.request.intent.slots.environmentNameFree.value : '';
+        
+        console.log('Texto hablado:', spokenText);
+        
+        if (!spokenText) {
+            return handlerInput.responseBuilder
+                .speak('No pude entender el nombre del entorno. ¿Podrías repetirlo?')
+                .reprompt('¿Qué entorno te gustaría desactivar?')
+                .getResponse();
+        }
+
+        try {
+            // Buscar todos los entornos
+            const entornos = await Entorno.find({});
+            console.log('Entornos encontrados:', entornos.map(e => e.nombre));
+            
+            // Buscar coincidencia en el texto hablado
+            let environmentName = null;
+            const spokenTextLower = spokenText.toLowerCase();
+            
+            for (const entorno of entornos) {
+                if (spokenTextLower.includes(entorno.nombre.toLowerCase())) {
+                    environmentName = entorno.nombre;
+                    break;
+                }
+            }
+            
+            console.log('Environment name encontrado:', environmentName);
+
+            if (!environmentName) {
+                return handlerInput.responseBuilder
+                    .speak(`No encontré un entorno que coincida con "${spokenText}". ¿Podrías verificar el nombre?`)
+                    .reprompt('¿Qué entorno te gustaría desactivar?')
+                    .getResponse();
+            }
+
+            // Desactivar el entorno
+            const entorno = await Entorno.findOne({ nombre: environmentName });
+            entorno.estado = false;
+            await entorno.save();
+
+            return handlerInput.responseBuilder
+                .speak(`Listo, he desactivado el entorno ${environmentName}. Todos los dispositivos han vuelto a su estado normal.`)
+                .getResponse();
+
+        } catch (error) {
+            console.error('Error deactivating environment:', error);
+            return handlerInput.responseBuilder
+                .speak('Lo siento, tuve un problema al desactivar el entorno. Inténtalo de nuevo.')
+                .reprompt('¿Qué entorno te gustaría desactivar?')
+                .getResponse();
+        }
+    }
+};
+
 module.exports = {
     ActivateEnvironmentIntent,
     DeactivateEnvironmentIntent,
     ListEnvironmentsIntent,
     ActivateEnvironmentSimpleIntent,
-    DeactivateEnvironmentSimpleIntent
+    DeactivateEnvironmentSimpleIntent,
+    ActivateEnvironmentFreeTextIntent,
+    DeactivateEnvironmentFreeTextIntent
 };

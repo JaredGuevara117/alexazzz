@@ -1,0 +1,80 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "work space",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ActivateEnvironmentFreeTextIntent",
+                    "slots": [
+                        {
+                            "name": "environmentNameFree",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "Activa {environmentNameFree}",
+                        "Encender {environmentNameFree}",
+                        "Iniciar {environmentNameFree}",
+                        "Prender {environmentNameFree}",
+                        "Activar {environmentNameFree}",
+                        "Activa el entorno {environmentNameFree}",
+                        "Activa el escenario {environmentNameFree}",
+                        "Encender el entorno {environmentNameFree}",
+                        "Encender el escenario {environmentNameFree}"
+                    ]
+                },
+                {
+                    "name": "DeactivateEnvironmentFreeTextIntent",
+                    "slots": [
+                        {
+                            "name": "environmentNameFree",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "Apaga {environmentNameFree}",
+                        "Desactiva {environmentNameFree}",
+                        "Finaliza {environmentNameFree}",
+                        "Apaga el entorno {environmentNameFree}",
+                        "Apaga el escenario {environmentNameFree}",
+                        "Desactiva el entorno {environmentNameFree}",
+                        "Desactiva el escenario {environmentNameFree}",
+                        "Finaliza el entorno {environmentNameFree}",
+                        "Finaliza el escenario {environmentNameFree}"
+                    ]
+                },
+                {
+                    "name": "ListEnvironmentsIntent",
+                    "slots": [],
+                    "samples": [
+                        "Recuerdame mis entornos",
+                        "Recuerdame mis escenarios",
+                        "Qué escenarios tengo",
+                        "Lista de escenarios",
+                        "Lista de entornos",
+                        "Qué entornos tengo",
+                        "lista mis entornos",
+                        "muéstrame mis entornos",
+                        "cuáles son mis entornos"
+                    ]
+                }
+            ]
+        }
+    }
+}
