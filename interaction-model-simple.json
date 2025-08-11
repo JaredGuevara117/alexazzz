@@ -37,7 +37,10 @@
                         "Activa el escenario {environmentNameFree}",
                         "Enciende el entorno {environmentNameFree}",
                         "Enciende el escenario {environmentNameFree}",
-                        "Modo {environmentNameFree}"
+                        "Modo {environmentNameFree}",
+                        "Enciende {environmentNameFree}",
+                        "Enciende escenario {environmentNameFree}",
+                        "Enciende entorno {environmentNameFree}"
                     ]
                 },
                 {
@@ -53,7 +56,9 @@
                         "Desactiva {environmentNameFree}",
                         "Finaliza {environmentNameFree}",
                         "Apaga el entorno {environmentNameFree}",
-                        "Apaga el escenario {environmentNameFree}"
+                        "Apaga el escenario {environmentNameFree}",
+                        "Apaga entorno {environmentNameFree}",
+                        "Apaga escenario {environmentNameFree}"
                     ]
                 },
                 {
